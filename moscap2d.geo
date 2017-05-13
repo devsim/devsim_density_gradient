@@ -1,0 +1,47 @@
+Mesh.CharacteristicLengthExtendFromBoundary=1; /* don't extend from boundary points */
+Mesh.Algorithm=5; /*Delaunay*/
+Mesh.RandomFactor=1e-7; /*perturbation*/
+/*Mesh.Algorithm=6;*/ /*Frontal*/
+Geometry.ScalingFactor=1.0e-7;
+Mesh.CharacteristicLengthMax = 2.5e-5; /*maximum characteristic length */
+
+w=1;
+tox=3;
+tsi=60;
+trf=tox+10; /*thickness of refinement area*/
+tcl0=0.5; /*cl in ox*/
+tcl1=0.05; /*cl near interface*/
+tcl2=0.5;
+tcl3=0.5; /*cl near backside */
+
+
+Point(1) = {-w/2.0,  -tox, 0, tcl0};
+Point(2) = { 0,      -tox, 0, tcl0};
+Point(3) = { w/2.0,  -tox, 0, tcl0};
+Point(4) = {-w/2.0,    0.0, 0, tcl1};
+Point(5) = { 0,        0.0, 0, tcl1};
+Point(6) = { w/2.0,    0.0, 0, tcl1};
+Point(7) = {-w/2.0,   trf, 0, tcl2};
+Point(8) = { w/2.0,   trf, 0, tcl2};
+Point(9) =  {-w/2.0,  tsi, 0, tcl3};
+Point(11) = { w/2.0,  tsi, 0, tcl3};
+Line(1) = {1, 2};
+Line(2) = {2, 3};
+Line(3) = {1, 4};
+Line(4) = {4, 5};
+Line(5) = {5, 6};
+Line(6) = {3, 6};
+Line(7) = {4, 7};
+Line(8) = {6, 8};
+Line(9) = {8, 11};
+Line(10) = {11, 9};
+Line(11) = {9, 7};
+Physical Line("gate") = {1, 2};
+Physical Line("sub") = {10};
+Physical Line("interface") = {4, 5};
+Line Loop(14) = {1, 2, 6, -5, -4, -3};
+Plane Surface(15) = {14};
+Line Loop(16) = {7, -11, -10, -9, -8, -5, -4};
+Plane Surface(17) = {16};
+Physical Surface("oxide") = {15};
+Physical Surface("silicon") = {17};
