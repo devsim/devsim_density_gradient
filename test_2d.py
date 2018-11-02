@@ -1,4 +1,4 @@
-import ds
+import devsim
 from dg_physics import *
 from dg_common import *
 import moscap
@@ -40,7 +40,7 @@ def simulate_charge(device, contact, equation, solver_params):
   q1 = get_contact_charge(device=device, contact=contact, equation="PotentialEquation")
   v2 = v1 + 0.001
   set_parameter(name=GetContactBiasName(contact), value=v2)
-  ds.solve(**solver_params)
+  devsim.solve(**solver_params)
   q2 = get_contact_charge(device=device, contact=contact, equation="PotentialEquation")
   return (v1, (charge_factor*(q2-q1)/dv))
 
@@ -292,7 +292,7 @@ for index, d in enumerate(dopings):
   set_node_values(device=device, region=region_ox, name="Potential", init_from="zero")
 
   set_parameter(name=GetContactBiasName("top"), value=vneg)
-  ds.solve(**solver_params)
+  devsim.solve(**solver_params)
 
   def mycb():
     res = simulate_charge(device=device, contact="top", equation="PotentialEquation", solver_params=solver_params)
@@ -350,7 +350,7 @@ for index, d in enumerate(dopings):
   set_parameter(device=device, region=region_si, name="Gammanox", value=0.1)
   set_parameter(device=device, region=region_si, name="Gammap", value=0.1)
   set_parameter(device=device, region=region_si, name="Gammapox", value=0.1)
-  ds.solve(**dg_solver_params)
+  devsim.solve(**dg_solver_params)
 
   for gr in gamma_ramps:
     gr()

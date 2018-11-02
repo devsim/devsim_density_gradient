@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import sys
-from ds import *
-import ds
+from devsim import *
+import devsim
 #from simple_physics import *
 
 def rampparam(device, region, param, stop, step_size, min_step, solver_params=None, callback=None):
@@ -42,7 +42,7 @@ def rampparam(device, region, param, stop, step_size, min_step, solver_params=No
     set_parameter(device=device, region=region, name=param, value=next_param)
     try:
       solve(**solver_params)
-    except ds.error as msg:
+    except devsim.error as msg:
       if msg[0].find("Convergence failure") != 0:
         raise
       set_parameter(device=device, region=region, name=param, value=last_param)
@@ -81,7 +81,7 @@ def rampbias(device, contact, end_bias, step_size, min_step, max_iter, rel_error
     set_parameter(device=device, name=GetContactBiasName(contact), value=next_bias)
     try:
       solve(type="dc", absolute_error=abs_error, relative_error=rel_error, maximum_iterations=max_iter)
-    except ds.error as msg:
+    except devsim.error as msg:
       if msg[0].find("Convergence failure") != 0:
         raise
       set_parameter(device=device, name=GetContactBiasName(contact), value=last_bias)

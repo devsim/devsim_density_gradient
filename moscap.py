@@ -16,7 +16,7 @@
 #### cap2.py
 #### tests physics of cap made of two insulating regions
 ####
-from ds import *
+from devsim import *
 def make_moscap(device, interface_siox, region_ox, region_si, contact_ox, contact_si, tox, tsi, ox_material, si_material):
   '''
     need to generalize, but good enough for our examples

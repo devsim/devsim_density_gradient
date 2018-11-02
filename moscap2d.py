@@ -1,4 +1,4 @@
-from ds import *
+from devsim import *
 def instantiate(filename, device, interface_siox, region_ox, region_si, contact_ox, contact_si, ox_material, si_material):
   create_gmsh_mesh (mesh=device, file=filename)
   add_gmsh_region  (mesh=device, gmsh_name="oxide",   region=region_ox, material=ox_material)
