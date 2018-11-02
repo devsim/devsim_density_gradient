@@ -345,7 +345,7 @@ for index, d in enumerate(dopings):
   set_node_values(device=device, region=region_ox, name="Potential", init_from="zero")
 
   set_parameter(name=GetContactBiasName("top"), value=0.0)
-  print d
+  print(d)
   set_parameter(device=device, region=region_si, name="Gamman", value=1.0)
   set_parameter(device=device, region=region_si, name="Gammanox", value=0.1)
   set_parameter(device=device, region=region_si, name="Gammap", value=0.1)

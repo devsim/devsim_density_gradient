@@ -28,7 +28,7 @@ def rampparam(device, region, param, stop, step_size, min_step, solver_params=No
     step_sign=-1
   last_param=start_param
   while(abs(last_param - stop) > min_step):
-    print("last end %e %e") % (last_param, stop)
+    print("last end %e %e" % (last_param, stop))
     next_param=last_param + step_sign * step_size
     if next_param < stop:
       next_step_sign=1
@@ -37,17 +37,17 @@ def rampparam(device, region, param, stop, step_size, min_step, solver_params=No
 
     if next_step_sign != step_sign:
       next_param=stop
-      print "setting to last param %e" % (stop)
-      print "setting next param %e" % (next_param)
+      print("setting to last param %e" % (stop))
+      print("setting next param %e" % (next_param))
     set_parameter(device=device, region=region, name=param, value=next_param)
     try:
       solve(**solver_params)
     except devsim.error as msg:
-      if msg[0].find("Convergence failure") != 0:
+      if str(msg).find("Convergence failure") != 0:
         raise
       set_parameter(device=device, region=region, name=param, value=last_param)
       step_size *= 0.5
-      print "setting new step size %e" % (step_size)
+      print("setting new step size %e" % (step_size))
       #raise NameError("STOP")
       if step_size < min_step:
         raise RuntimeError("Min step size too small")
@@ -67,7 +67,7 @@ def rampbias(device, contact, end_bias, step_size, min_step, max_iter, rel_error
     step_sign=-1
   last_bias=start_bias
   while(abs(last_bias - end_bias) > min_step):
-    print("last end %e %e") % (last_bias, end_bias)
+    print(("last end %e %e") % (last_bias, end_bias))
     next_bias=last_bias + step_sign * step_size
     if next_bias < end_bias:
       next_step_sign=1
@@ -76,8 +76,8 @@ def rampbias(device, contact, end_bias, step_size, min_step, max_iter, rel_error
 
     if next_step_sign != step_sign:
       next_bias=end_bias
-      print "setting to last bias %e" % (end_bias)
-      print "setting next bias %e" % (next_bias)
+      print("setting to last bias %e" % (end_bias))
+      print("setting next bias %e" % (next_bias))
     set_parameter(device=device, name=GetContactBiasName(contact), value=next_bias)
     try:
       solve(type="dc", absolute_error=abs_error, relative_error=rel_error, maximum_iterations=max_iter)
@@ -86,11 +86,11 @@ def rampbias(device, contact, end_bias, step_size, min_step, max_iter, rel_error
         raise
       set_parameter(device=device, name=GetContactBiasName(contact), value=last_bias)
       step_size *= 0.5
-      print "setting new step size %e" % (step_size)
+      print("setting new step size %e" % (step_size))
       if step_size < min_step:
-        raise "Min step size too small"
+        raise RuntimeError("Min step size too small")
       continue
-    print "Succeeded"
+    print("Succeeded")
     last_bias=next_bias
     callback(device)
 

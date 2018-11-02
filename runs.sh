@@ -1,5 +1,5 @@
 #!/bin/bash
-# use python 2.7 environment
+# use python 3.7 environment
 set -e
 for i in '1.5' '3'; do \
   for j in 'Electrons' 'Holes'; do \

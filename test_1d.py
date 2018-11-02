@@ -207,11 +207,11 @@ try:
   carrier_var = sys.argv[2]
   pdfname = sys.argv[3]
 except Exception as e:
-  print '''args tox carrier pdfname
+  print('''args tox carrier pdfname
 tox:     oxide thickness (nm)
 carrier: Electrons or Holes
 pdfname: pdf file name
-'''
+''')
   raise
 
 
@@ -349,7 +349,7 @@ for index, d in enumerate(dopings):
   set_node_values(device=device, region=region_ox, name="Potential", init_from="zero")
 
   set_parameter(name=GetContactBiasName("top"), value=0.0)
-  print d
+  print(d)
   set_parameter(device=device, region=region_si, name="Gamman", value=10)
   set_parameter(device=device, region=region_si, name="Gammanox", value=1)
   set_parameter(device=device, region=region_si, name="Gammap", value=0.1)

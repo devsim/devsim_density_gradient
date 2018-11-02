@@ -31,7 +31,7 @@ def SetUniversalParameters(device, region):
     'k' :          1.3806503e-23,    #, 'J/K'),
     'Permittivity_0' :  8.85e-14     #, 'F/cm^2')
   }
-  for k, v in universal.items():
+  for k, v in list(universal.items()):
     set_parameter(device=device, region=region, name=k, value=v)
 
 def SetOxideParameters(device, region):
@@ -93,7 +93,7 @@ def SetSiliconParameters(device, region):
 #    "T" : 300
   }
 
-  for k, v in par.items():
+  for k, v in list(par.items()):
     set_parameter(device=device, region=region, name=k, value=v)
 
 def CreateQuasiFermiLevels(device, region, electron_model, hole_model, variables):
@@ -176,7 +176,7 @@ def CreateBandEdgeModels(device, region, variables):
     #('EPdiff', 'EVdiff + Lh@n0 - Lh@n1', ('Potential', 'T', 'Lh')),
   )
   for (model, equation, variable_list) in eeq:
-    print model
+    print(model)
     CreateEdgeModel(device, region, model, equation)
     vset = set(variable_list)
     for v in variables:
@@ -581,7 +581,7 @@ def CreateOxidePotentialOnly(device, region, update_type="default"):
     Creates Potential solution variable if not available
   '''
   if not InNodeModelList(device, region, "Potential"):
-    print "Creating Node Solution Potential"
+    print("Creating Node Solution Potential")
     CreateSolution(device, region, "Potential")
 
   efield="(Potential@n0 - Potential@n1)*EdgeInverseLength"

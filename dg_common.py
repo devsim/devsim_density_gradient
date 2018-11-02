@@ -61,7 +61,7 @@ def setup_atox(device, region):
         interface_model(device=device, interface=i, name="iindex", equation="node_index@r1")
       nlist = get_interface_model_values(device=device, interface=i, name="iindex")
       for j in nlist:
-        print j
+        print(j)
         set_node_value(device=device, region=region, index=int(j), name="AtOx", value=1.0)
 
 def setup_dg_variable(device, region, variable):
