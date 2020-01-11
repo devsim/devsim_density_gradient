@@ -41,7 +41,7 @@ def set_dg_parameters(device, region):
   # Edge Integration
   #
   em = (
-    ("b_n", "b_ne", "arithmetic", ()),
+      ("b_n", "b_ne", "arithmetic", ()),
     ("b_p", "b_pe", "arithmetic", ()),
   )
   for e in em:
@@ -73,7 +73,7 @@ def setup_log_si(device, region):
   # log_n, log_p
   #
   em = (
-    ("d_l_n",           "log(Electrons@n0/Electrons@n1)*EdgeInverseLength"),
+      ("d_l_n",           "log(Electrons@n0/Electrons@n1)*EdgeInverseLength"),
     ("d_l_n:Electrons@n0", "(Electrons@n0^(-1))*EdgeInverseLength"),
     ("d_l_n:Electrons@n1", "-(Electrons@n1^(-1))*EdgeInverseLength"),
     ("d_l_p",           "log(Holes@n0/Holes@n1)*EdgeInverseLength"),
@@ -106,7 +106,7 @@ def setup_log_ox(device, region):
   # log_n, log_p
   #
   em = (
-    # could use gradient model
+      # could use gradient model
     ("d_l_n",           "EdgeInverseLength*(Le@n1 - Le@n0)/V_t_edge"),
     ("d_l_n:Le@n0",     "-EdgeInverseLength/V_t_edge"),
     ("d_l_n:Le@n1",     "EdgeInverseLength/V_t_edge"),
@@ -141,7 +141,7 @@ def setup_log_si_potential_only(device, region):
   # log_n, log_p
   #
   em = (
-    # could use gradient model
+      # could use gradient model
     #("d_l_n",           "EdgeInverseLength*((Le@n1 - Le@n0)/V_t_edge)"),
     #("d_l_n",           "EdgeInverseLength*((-V_t_edge*log(NIE_edge) + (Le@n1 - Le@n0))/V_t_edge)"),
     #("d_l_n",           "EdgeInverseLength*((-V_t_edge*log(NIE_edge) + (Potential@n0 - Potential@n1))/V_t_edge)"),
@@ -204,10 +204,10 @@ def setup_dg_volume(device, region, normalized=False):
   #  ("Lh_eqn:Lh",      "1/b_p"),
   #)
   em = (
-#    ("Le_eqn",         "Le - AtOx*1e2"),
-    ("Le_eqn",         "Le - AtOx*b_nox*SurfaceArea/(NodeVolume*x_np)"),
+      #    ("Le_eqn",         "Le - AtOx*1e2"),
+      ("Le_eqn",         "Le - AtOx*b_nox*SurfaceArea/(NodeVolume*x_np)"),
     ("Le_eqn:Le",      "1"),
-#    ("Lh_eqn",         "Lh"),
+      #    ("Lh_eqn",         "Lh"),
     ("Lh_eqn",         "Lh - AtOx*b_pox*SurfaceArea/(NodeVolume*x_pp)"),
     ("Lh_eqn:Lh",      "1"),
   )
@@ -267,7 +267,7 @@ def setup_dg_ox(device, region):
 
 def setup_dg_equation(device, region, e_name, v_name, e_m, e_v_m, n_m):
   equation(device=device, region=region, name=e_name, variable_name=v_name,
-        edge_model=e_m, edge_volume_model=e_v_m, node_model=n_m, variable_update="default")
+           edge_model=e_m, edge_volume_model=e_v_m, node_model=n_m, variable_update="default")
 
 # TODO: generalize multiple contacts by testing existence
 def setup_dg_contact(device, contact, eq_name, v_name):
@@ -278,7 +278,7 @@ def setup_dg_contact(device, contact, eq_name, v_name):
   CreateContactNodeModel(device, contact, d, '1')
 
   contact_equation(device=device , contact=contact, name=eq_name, variable_name=v_name,
-                        node_model=m)
+                   node_model=m)
 
 def setup_dg_interface(device, interface, eq_name, v_name):
   model_name = CreateContinuousInterfaceModel(device, interface, v_name)

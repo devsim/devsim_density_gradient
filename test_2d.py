@@ -274,14 +274,14 @@ elif carrier_var == 'Holes':
 classical_data = [None]*len(dopings)
 
 solver_params = {
-  'type' : "dc",
+    'type' : "dc",
   'relative_error' : 1e-11,
   'absolute_error' : 1,
   'maximum_iterations' : 50
 }
 for index, d in enumerate(dopings):
   cdict = {
-    'doping' : format_doping(float(d)),
+      'doping' : format_doping(float(d)),
     'q' : [],
     'v' : [],
   }
@@ -324,7 +324,7 @@ for eq in eqfuncs:
 quantum_data = [None]*len(dopings)
 
 dg_solver_params = {
-  'type' : "dc",
+    'type' : "dc",
   'relative_error' : 1e-5,
   'absolute_error' : 1,
   'maximum_iterations' : 50
@@ -333,7 +333,7 @@ dg_solver_params = {
 
 for index, d in enumerate(dopings):
   qdict = {
-    'doping' : format_doping(float(d)),
+      'doping' : format_doping(float(d)),
     'q' : [],
     'v' : [],
   }

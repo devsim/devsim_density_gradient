@@ -220,7 +220,7 @@ toxstring = r' t$_{ox}$=%s (nm)' % sys.argv[1]
 xstring = r'distance from interface (nm)'
 
 moscap.make_moscap(
-  device=device,
+    device=device,
   region_ox = region_ox,
   region_si = region_si,
   contact_ox = contact_ox,
@@ -278,14 +278,14 @@ elif carrier_var == 'Holes':
 classical_data = [None]*len(dopings)
 
 solver_params = {
-  'type' : "dc",
+    'type' : "dc",
   'relative_error' : 1e-11,
   'absolute_error' : 1,
   'maximum_iterations' : 50
 }
 for index, d in enumerate(dopings):
   cdict = {
-    'doping' : format_doping(float(d)),
+      'doping' : format_doping(float(d)),
     'q' : [],
     'v' : [],
   }
@@ -328,7 +328,7 @@ for eq in eqfuncs:
 quantum_data = [None]*len(dopings)
 
 dg_solver_params = {
-  'type' : "dc",
+    'type' : "dc",
   'relative_error' : 1e-5,
   'absolute_error' : 1,
   'maximum_iterations' : 50
@@ -337,7 +337,7 @@ dg_solver_params = {
 
 for index, d in enumerate(dopings):
   qdict = {
-    'doping' : format_doping(float(d)),
+      'doping' : format_doping(float(d)),
     'q' : [],
     'v' : [],
   }
@@ -459,12 +459,12 @@ x=abs(numpy.array(get_node_model_values(device=device, region=region_si, name='x
 for i in range(len(dopings)):
   fig = plt.figure()
   plt.plot(
-    x,
+      x,
     classical_data[i][carrier_var],
     label="Classical"
   )
   plt.plot(
-    x,
+      x,
     quantum_data[i][carrier_var],
     label="Density Gradient"
   )

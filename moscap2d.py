@@ -11,7 +11,7 @@ def instantiate(filename, device, interface_siox, region_ox, region_si, contact_
 
 def run():
   test_opts = {
-    "filename" : "moscap2d.msh",
+      "filename" : "moscap2d.msh",
     "device" : "MyDevice",
     "region_ox" : "MyOxRegion",
     "region_si" : "MySiRegion",
