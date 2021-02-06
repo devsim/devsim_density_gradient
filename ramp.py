@@ -13,15 +13,14 @@
 # limitations under the License.
 
 import sys
-from devsim import *
-import devsim
+import devsim as ds
 #from simple_physics import *
 
 def rampparam(device, region, param, stop, step_size, min_step, solver_params=None, callback=None):
     '''
       Ramps param with assignable callback function
     '''
-    start_param=get_parameter(device=device, region=region, name=param)
+    start_param=ds.get_parameter(device=device, region=region, name=param)
     if (start_param < stop):
         step_sign=1
     else:
@@ -39,13 +38,13 @@ def rampparam(device, region, param, stop, step_size, min_step, solver_params=No
             next_param=stop
             print("setting to last param %e" % (stop))
             print("setting next param %e" % (next_param))
-        set_parameter(device=device, region=region, name=param, value=next_param)
+        ds.set_parameter(device=device, region=region, name=param, value=next_param)
         try:
-            solve(**solver_params)
-        except devsim.error as msg:
+            ds.solve(**solver_params)
+        except ds.error as msg:
             if str(msg).find("Convergence failure") != 0:
                 raise
-            set_parameter(device=device, region=region, name=param, value=last_param)
+            ds.set_parameter(device=device, region=region, name=param, value=last_param)
             step_size *= 0.5
             print("setting new step size %e" % (step_size))
             #raise NameError("STOP")
@@ -81,8 +80,8 @@ def rampbias(device, contact, end_bias, step_size, min_step, max_iter, rel_error
         set_parameter(device=device, name=GetContactBiasName(contact), value=next_bias)
         try:
             solve(type="dc", absolute_error=abs_error, relative_error=rel_error, maximum_iterations=max_iter)
-        except devsim.error as msg:
-            if msg[0].find("Convergence failure") != 0:
+        except ds.error as msg:
+            if str(msg).find("Convergence failure") != 0:
                 raise
             set_parameter(device=device, name=GetContactBiasName(contact), value=last_bias)
             step_size *= 0.5
@@ -100,4 +99,3 @@ def printAllCurrents(device):
     '''
     for c in get_contact_list(device=device):
         PrintCurrents(device, c)
-

@@ -12,21 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from devsim import *
+import devsim as ds
 debug = False
 def CreateSolution(device, region, name):
     '''
       Creates solution variables
       As well as their entries on each edge
     '''
-    node_solution(name=name, device=device, region=region)
-    edge_from_node_model(node_model=name, device=device, region=region)
+    ds.node_solution(name=name, device=device, region=region)
+    ds.edge_from_node_model(node_model=name, device=device, region=region)
 
 def CreateNodeModel(device, region, model, expression):
     '''
       Creates a node model
     '''
-    result=node_model(device=device, region=region, name=model, equation=expression)
+    result=ds.node_model(device=device, region=region, name=model, equation=expression)
     if debug:
         print(("NODEMODEL {d} {r} {m} \"{re}\"".format(d=device, r=region, m=model, re=result)))
 
@@ -36,8 +36,8 @@ def CreateNodeModelDerivative(device, region, model, expression, *vars):
     '''
     for v in vars:
         CreateNodeModel(device, region,
-                        "{m}:{v}".format(m=model, v=v),
-                        "diff({e},{v})".format(e=expression, v=v))
+          "{m}:{v}".format(m=model, v=v),
+          "diff({e},{v})".format(e=expression, v=v))
           #"simplify(diff({e},{v}))".format(e=expression, v=v))
 
 
@@ -45,7 +45,7 @@ def CreateContactNodeModel(device, contact, model, expression):
     '''
       Creates a contact node model
     '''
-    result=contact_node_model(device=device, contact=contact, name=model, equation=expression)
+    result=ds.contact_node_model(device=device, contact=contact, name=model, equation=expression)
     if debug:
         print(("CONTACTNODEMODEL {d} {c} {m} \"{re}\"".format(d=device, c=contact, m=model, re=result)))
 
@@ -55,15 +55,15 @@ def CreateContactNodeModelDerivative(device, contact, model, expression, variabl
       Creates a contact node model derivative
     '''
     CreateContactNodeModel(device, contact,
-                           "{m}:{v}".format(m=model, v=variable),
-                           "diff({e}, {v})".format(e=expression, v=variable))
+      "{m}:{v}".format(m=model, v=variable),
+      "diff({e}, {v})".format(e=expression, v=variable))
         #"simplify(diff({e}, {v}))".format(e=expression, v=variable))
 
 def CreateEdgeModel (device, region, model, expression):
     '''
       Creates an edge model
     '''
-    result=edge_model(device=device, region=region, name=model, equation=expression)
+    result=ds.edge_model(device=device, region=region, name=model, equation=expression)
     if debug:
         print("EDGEMODEL {d} {r} {m} \"{re}\"".format(d=device, r=region, m=model, re=result));
 
@@ -72,12 +72,12 @@ def CreateEdgeModelDerivatives(device, region, model, expression, variable):
       Creates edge model derivatives
     '''
     CreateEdgeModel(device, region,
-                    "{m}:{v}@n0".format(m=model, v=variable),
-                    "diff({e}, {v}@n0)".format(e=expression, v=variable))
+      "{m}:{v}@n0".format(m=model, v=variable),
+      "diff({e}, {v}@n0)".format(e=expression, v=variable))
         #"simplify(diff({e}, {v}@n0))".format(e=expression, v=variable))
     CreateEdgeModel(device, region,
-                    "{m}:{v}@n1".format(m=model, v=variable),
-                    "diff({e}, {v}@n1)".format(e=expression, v=variable))
+      "{m}:{v}@n1".format(m=model, v=variable),
+      "diff({e}, {v}@n1)".format(e=expression, v=variable))
         #"simplify(diff({e}, {v}@n1))".format(e=expression, v=variable))
 
 def CreateContactEdgeModel(device, contact, model, expression):
@@ -99,7 +99,7 @@ def CreateInterfaceModel(device, interface, model, expression):
     '''
       Creates a interface node model
     '''
-    result=interface_model(device=device, interface=interface, name=model, equation=expression)
+    result=ds.interface_model(device=device, interface=interface, name=model, equation=expression)
     if debug:
         print(("INTERFACEMODEL {d} {i} {m} \"{re}\"".format(d=device, i=interface, m=model, re=result)))
 
@@ -124,13 +124,13 @@ def InEdgeModelList(device, region, model):
     '''
       Checks to see if this edge model is available on device and region
     '''
-    return model in get_edge_model_list(device=device, region=region)
+    return model in ds.get_edge_model_list(device=device, region=region)
 
 def InNodeModelList(device, region, model):
     '''
       Checks to see if this node model is available on device and region
     '''
-    return model in get_node_model_list(device=device, region=region)
+    return model in ds.get_node_model_list(device=device, region=region)
 
 #### Make sure that the model exists, as well as it's node model
 def EnsureEdgeFromNodeModelExists(device, region, nodemodel):
@@ -145,7 +145,7 @@ def EnsureEdgeFromNodeModelExists(device, region, nodemodel):
     if not emtest:
         if debug:
             print("INFO: Creating ${0}@n0 and ${0}@n1".format(nodemodel))
-        edge_from_node_model(device=device, region=region, node_model=nodemodel)
+        ds.edge_from_node_model(device=device, region=region, node_model=nodemodel)
 
 def CreateElementModel2d(device, region, model, expression):
     result=element_model(device=device, region=region, name=model, equation=expression)
@@ -162,22 +162,21 @@ def CreateElementModelDerivative2d(device, region, model_name, expression, *args
 
 ### edge_model is the name of the edge model to be created
 def CreateGeometricMean(device, region, nmodel, emodel):
-    edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel, average_type="geometric")
+    ds.edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel, average_type="geometric")
 
 def CreateGeometricMeanDerivative(device, region, nmodel, emodel, *args):
     if len(args) == 0:
         raise ValueError("Must specify a list of variable names")
     for i in args:
-        edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel,
-                           derivative=i, average_type="geometric")
+        ds.edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel,
+         derivative=i, average_type="geometric")
 
 def CreateArithmeticMean(device, region, nmodel, emodel):
-    edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel, average_type="arithmetic")
+    ds.edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel, average_type="arithmetic")
 
 def CreateArithmeticMeanDerivative(device, region, nmodel, emodel, *args):
     if len(args) == 0:
         raise ValueError("Must specify a list of variable names")
     for i in args:
         edge_average_model(device=device, region=region, edge_model=emodel, node_model=nmodel,
-                           derivative=i, average_type="arithmetic")
-
+         derivative=i, average_type="arithmetic")
