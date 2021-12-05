@@ -283,12 +283,12 @@ def CreateSiliconPotentialOnlyContact(device, region, contact, is_circuit=False)
         CreateContactNodeModel(device, contact, "{0}:{1}".format(contact_model_name,GetContactBiasName(contact)), "-1")
 
     if is_circuit:
-        ds.contact_equation(device=device, contact=contact, name="PotentialEquation", variable_name="Potential",
+        ds.contact_equation(device=device, contact=contact, name="PotentialEquation",
                        node_model=contact_model_name, edge_model="",
                        node_charge_model="contactcharge_node", edge_charge_model="DField",
                        node_current_model="", edge_current_model="", circuit_node=GetContactBiasName(contact))
     else:
-        ds.contact_equation(device=device, contact=contact, name="PotentialEquation", variable_name="Potential",
+        ds.contact_equation(device=device, contact=contact, name="PotentialEquation",
                        node_model=contact_model_name, edge_model="",
                        node_charge_model="contactcharge_node", edge_charge_model="DField",
                        node_current_model="", edge_current_model="")
@@ -384,20 +384,20 @@ def CreateSiliconDriftDiffusionContact(device, region, contact, Jn, Jp, is_circu
     CreateContactNodeModel(device, contact, "{0}:{1}".format(contact_holes_name, "Holes"), "1")
 
     if is_circuit:
-        contact_equation(device=device, contact=contact, name="ElectronContinuityEquation", variable_name="Electrons",
+        contact_equation(device=device, contact=contact, name="ElectronContinuityEquation",
                              node_model=contact_electrons_name,
                              edge_current_model=Jn, circuit_node=GetContactBiasName(contact))
 
-        contact_equation(device=device, contact=contact, name="HoleContinuityEquation", variable_name="Holes",
+        contact_equation(device=device, contact=contact, name="HoleContinuityEquation",
                              node_model=contact_holes_name,
                              edge_current_model=Jp, circuit_node=GetContactBiasName(contact))
 
     else:
-        contact_equation(device=device, contact=contact, name="ElectronContinuityEquation", variable_name="Electrons",
+        contact_equation(device=device, contact=contact, name="ElectronContinuityEquation",
                              node_model=contact_electrons_name,
                              edge_current_model=Jn)
 
-        contact_equation(device=device, contact=contact, name="HoleContinuityEquation", variable_name="Holes",
+        contact_equation(device=device, contact=contact, name="HoleContinuityEquation",
                              node_model=contact_holes_name,
                              edge_current_model=Jp)
 
@@ -600,7 +600,7 @@ def CreateSiliconOxideInterface(device, interface):
       continuous potential at interface
     '''
     model_name = CreateContinuousInterfaceModel(device, interface, "Potential")
-    ds.interface_equation(device=device, interface=interface, name="PotentialEquation", variable_name="Potential", interface_model=model_name, type="continuous")
+    ds.interface_equation(device=device, interface=interface, name="PotentialEquation", interface_model=model_name, type="continuous")
 
 
 #in the future, worry about workfunction
@@ -617,5 +617,5 @@ def CreateOxideContact(device, region, contact):
         CreateEdgeModel(device, region, contactcharge_edge, "Permittivity*EField")
         CreateEdgeModelDerivatives(device, region, contactcharge_edge, "Permittivity*EField", "Potential")
 
-    ds.contact_equation(device=device , contact=contact, name="PotentialEquation", variable_name= "Potential",
+    ds.contact_equation(device=device , contact=contact, name="PotentialEquation",
                           node_model=contact_model_name, edge_charge_model= contactcharge_edge)

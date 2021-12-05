@@ -281,9 +281,9 @@ def setup_dg_contact(device, contact, eq_name, v_name):
     d = m + ':' + v_name
     CreateContactNodeModel(device, contact, d, '1')
 
-    ds.contact_equation(device=device , contact=contact, name=eq_name, variable_name=v_name,
-                          node_model=m)
+    ds.contact_equation(device=device , contact=contact, name=eq_name, node_model=m)
 
 def setup_dg_interface(device, interface, eq_name, v_name):
     model_name = CreateContinuousInterfaceModel(device, interface, v_name)
-    interface_equation(device=device, interface=interface, name=eq_name, variable_name=v_name, interface_model=model_name, type="continuous")
+    interface_equation(device=device, interface=interface, name=eq_name, interface_model=model_name, type="continuous")
+
