@@ -3,7 +3,7 @@
 These implement the Density Gradient method in a way similar to this paper:
 
 
-[https://doi.org/10.1080/1065514021000012363] (https://doi.org/10.1080/1065514021000012363)
+[https://doi.org/10.1080/1065514021000012363](https://doi.org/10.1080/1065514021000012363)
 ```
 @ARTICLE{WettsteinVLSI2002,
 author={Andreas Wettstein and Oleg Penzin and Eugeny Lyumkis},
