@@ -1,6 +1,8 @@
 # Density Gradient Example
 
-These implement the Density Gradient method in a way similar to this paper:
+## References
+
+This repository implements the Density Gradient method in a way similar to this paper:
 
 
 [https://doi.org/10.1080/1065514021000012363](https://doi.org/10.1080/1065514021000012363)
@@ -34,20 +36,15 @@ doi={10.1109/TCAD.2011.2107990},
 ISSN={0278-0070},}
 ```
 
+## Notes
+
 While there is code for full drift diffusion, it has only been really tested for MOSCAP simulation with coupling of the Potential equation with either the electron or hole density equation.
 
 A description of the derivation of this model is in this document:
 [https://github.com/devsim/devsim_misc/blob/main/devsim_docs/TCADdocs.pdf](https://github.com/devsim/devsim_misc/blob/main/devsim_docs/TCADdocs.pdf)
 
-test_1D.py
-  1D simulation plots
-
-runs.sh
-  Runs 1D plots for different doping and oxide thicknesses
-
-moscap2d.geo
-  3nm tox from gmsh
-
-test_2d.py
-  2d example
+* `test_1D.py` - 1D simulation plots
+* `runs.sh` - Runs 1D plots for different doping and oxide thicknesses
+* `moscap2d.geo` - 3nm tox from gmsh
+* `test_2d.py` - 2d example
 
