@@ -1,3 +1,5 @@
+# Density Gradient Example
+
 These implement the Density Gradient method in a way similar to this paper:
 
 @ARTICLE{WettsteinVLSI2002,
@@ -24,6 +26,10 @@ pages={841--851},
 doi={10.1109/TCAD.2011.2107990},
 ISSN={0278-0070},}
 
+While there is code for full drift diffusion, it has only been really tested for MOSCAP simulation with coupling of the Potential equation with either the electron or hole density equation.
+
+A description of the derivation of this model is in this document:
+[https://github.com/devsim/devsim_misc/blob/main/devsim_docs/TCADdocs.pdf](https://github.com/devsim/devsim_misc/blob/main/devsim_docs/TCADdocs.pdf)
 
 test_1D.py
   1D simulation plots
